@@ -5,6 +5,9 @@ using System.Reflection;
 
 namespace StateSharp
 {
+    /// <summary>
+    /// An Object based enumeration, to allow the StateMachine to be generic when dealing with States/Commands
+    /// </summary>
     public abstract class Enumeration : IComparable
     {
         public string Name { get; private set; }
@@ -38,7 +41,9 @@ namespace StateSharp
             var typeMatches = GetType().Equals(obj.GetType());
             var valueMatches = Value.Equals(otherValue.Value);
 
-            return typeMatches && valueMatches;
+            var isMatch = typeMatches && valueMatches;
+
+            return isMatch;
         }
 
         public int CompareTo(object obj) 

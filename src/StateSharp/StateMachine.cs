@@ -5,7 +5,7 @@ namespace StateSharp
 {
     public abstract class StateMachine : IStateMachine
     {
-        private Dictionary<StateTransitionKey, IStateTransition> Transitions = new Dictionary<StateTransitionKey, IStateTransition>();
+        internal Dictionary<IStateTransitionKey, IStateTransition> Transitions = new Dictionary<IStateTransitionKey, IStateTransition>();
 
         protected abstract bool ThrowOnInvalidTransition { get; }
 
@@ -15,7 +15,7 @@ namespace StateSharp
         {
             _ = transition ?? throw new ArgumentNullException(nameof(transition));
 
-            StateTransitionKey key = new StateTransitionKey(transition.InState, transition.Command);
+            IStateTransitionKey key = new StateTransitionKey(transition.CurrentState, transition.Command);
 
             //do not allow overwrites
             if (Transitions.ContainsKey(key))
@@ -42,7 +42,7 @@ namespace StateSharp
             if (Transitions.TryGetValue(new StateTransitionKey(CurrentState, command), out transition))
             {
                 transition.TransitionAction();
-                CurrentState = transition.ToState;
+                CurrentState = transition.ResultingState;
                 return;
             }
 

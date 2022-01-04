@@ -7,10 +7,10 @@ namespace StateSharp
         /// <summary>
         /// The Current State that the IStateMachine has to be in
         /// </summary>
-        IState InState { get; }
+        IState CurrentState { get; }
 
         /// <summary>
-        /// Command which transitions from the InState to the ToState
+        /// Command which transitions from the CurrentState to the ToState
         /// </summary>
         ICommand Command { get; }
 
@@ -22,6 +22,6 @@ namespace StateSharp
         /// <summary>
         /// The State that the IStateMachine will be in after TransitionAction() is called
         /// </summary>
-        IState ToState { get; }
+        IState ResultingState { get; }
     }
 }
