@@ -1,5 +1,4 @@
-﻿using StateSharp;
-using StateSharp.Demo.Vehicle.Transitions;
+﻿using StateSharp.Demo.Vehicle.Transitions;
 
 namespace StateSharp.Demo.Vehicle
 {
@@ -16,7 +15,5 @@ namespace StateSharp.Demo.Vehicle
             AddTransition(new OnMovingTransition());
             AddTransition(new MovingOnTransition());
         }
-
-
     }
 }

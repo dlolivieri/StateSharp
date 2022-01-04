@@ -1,5 +1,4 @@
-﻿using StateSharp;
-using System;
+﻿using System;
 
 namespace StateSharp.Demo.Vehicle.Transitions
 {

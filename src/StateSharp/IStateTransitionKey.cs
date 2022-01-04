@@ -7,9 +7,9 @@ namespace StateSharp
     /// </summary>
     public interface IStateTransitionKey : IComparable
     {
-        IState CurrentState { get; }
+        //IState CurrentState { get; }
 
-        ICommand TransitionCommand { get; }
+        //ICommand TransitionCommand { get; }
 
         bool Equals(object obj);
 

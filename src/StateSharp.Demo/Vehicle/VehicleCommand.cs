@@ -1,6 +1,4 @@
-﻿using StateSharp;
-
-namespace StateSharp.Demo.Vehicle
+﻿namespace StateSharp.Demo.Vehicle
 {
     public class VehicleCommand : Enumeration, ICommand
     {
