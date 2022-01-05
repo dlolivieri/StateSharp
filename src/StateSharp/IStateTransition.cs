@@ -2,7 +2,7 @@
 
 namespace StateSharp
 {
-    public interface IStateTransition
+    public interface IStateTransition<T> where T : IStateMachineContext
     {
         /// <summary>
         /// The Current State that the IStateMachine has to be in
@@ -17,7 +17,7 @@ namespace StateSharp
         /// <summary>
         /// The action that occurs when transitioning
         /// </summary>
-        void TransitionAction();
+        void TransitionAction(T context);
 
         /// <summary>
         /// The State that the IStateMachine will be in after TransitionAction() is called

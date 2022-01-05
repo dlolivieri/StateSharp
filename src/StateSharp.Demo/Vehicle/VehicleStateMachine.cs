@@ -2,11 +2,12 @@
 
 namespace StateSharp.Demo.Vehicle
 {
-    public class VehicleStateMachine : StateMachine
+    public class VehicleStateMachine : StateMachine<VehicleStateMachineContext>
     {
         protected override bool ThrowOnInvalidTransition => false;
 
-        public VehicleStateMachine()
+        public VehicleStateMachine(VehicleStateMachineContext context)
+            : base(context)
         {
             CurrentState = VehicleState.Off;
 

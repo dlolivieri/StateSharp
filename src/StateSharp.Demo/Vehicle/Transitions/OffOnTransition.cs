@@ -2,7 +2,7 @@
 
 namespace StateSharp.Demo.Vehicle.Transitions
 {
-    public class OffOnTransition : IStateTransition
+    public class OffOnTransition : IStateTransition<VehicleStateMachineContext>
     {
         public IState CurrentState => VehicleState.Off;
 
@@ -10,9 +10,9 @@ namespace StateSharp.Demo.Vehicle.Transitions
 
         public IState ResultingState => VehicleState.On;
 
-        public void TransitionAction()
+        public void TransitionAction(VehicleStateMachineContext context)
         {
-            Console.Out.WriteLine("The Vehicle is turning on.");
+            context.VehicleMessage = "The Vehicle is turning on.";
         }
     }
 }
