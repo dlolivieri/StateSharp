@@ -5,7 +5,7 @@ namespace StateSharp
 {
     public abstract class StateMachine<T> : IStateMachine<T>
     {
-        internal Dictionary<IStateTransitionKey, IStateTransition<T>> Transitions = new Dictionary<IStateTransitionKey, IStateTransition<T>>();
+        internal Dictionary<IComparable, IStateTransition<T>> Transitions = new Dictionary<IComparable, IStateTransition<T>>();
 
         protected abstract bool ThrowOnInvalidTransition { get; }
 
@@ -24,7 +24,7 @@ namespace StateSharp
         {
             _ = transition ?? throw new ArgumentNullException(nameof(transition));
 
-            IStateTransitionKey key = new StateTransitionKey(transition.CurrentState, transition.Command);
+            IComparable key = GetStateTransitionKey(transition.CurrentState, transition.Command);
 
             //do not allow overwrites
             if (Transitions.ContainsKey(key))
@@ -40,7 +40,7 @@ namespace StateSharp
 
         protected bool HasNextTransition(IState currentState, ICommand command)
         {
-            return Transitions.ContainsKey(new StateTransitionKey(currentState, command));
+            return Transitions.ContainsKey(GetStateTransitionKey(currentState, command));
         }
 
         public bool ExecuteTransition(ICommand command)
@@ -48,7 +48,7 @@ namespace StateSharp
             IStateTransition<T> transition;
 
             //TryGetValue is faster than a ContainsKey(key) check followed by a transition = Transitions[key]
-            if (Transitions.TryGetValue(new StateTransitionKey(CurrentState, command), out transition))
+            if (Transitions.TryGetValue(GetStateTransitionKey(CurrentState, command), out transition))
             {
                 transition.TransitionAction(Context);
                 CurrentState = transition.ResultingState;
@@ -59,6 +59,11 @@ namespace StateSharp
                 throw new InvalidOperationException($"State Machine has no transition defined for Current State {CurrentState} with Command {command}");
 
             return false;
+        }
+
+        protected IComparable GetStateTransitionKey(IState state, ICommand command)
+        {
+            return new StateTransitionKey(state, command);
         }
     }
 }

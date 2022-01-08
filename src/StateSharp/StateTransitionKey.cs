@@ -2,7 +2,7 @@
 
 namespace StateSharp
 {
-    public sealed class StateTransitionKey : Tuple<IState, ICommand>, IStateTransitionKey
+    public sealed class StateTransitionKey : Tuple<IState, ICommand>
     {
         public IState CurrentState => Item1;
         public ICommand TransitionCommand => Item2;

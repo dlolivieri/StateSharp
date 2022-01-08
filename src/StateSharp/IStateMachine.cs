@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace StateSharp
+﻿namespace StateSharp
 {
     public interface IStateMachine<T>
     {
