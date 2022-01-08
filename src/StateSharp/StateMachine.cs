@@ -3,11 +3,9 @@ using System.Collections.Generic;
 
 namespace StateSharp
 {
-    public abstract class StateMachine<T> : IStateMachine<T>
+    public class StateMachine<T> : IStateMachine<T>
     {
-        internal Dictionary<IComparable, IStateTransition<T>> Transitions = new Dictionary<IComparable, IStateTransition<T>>();
-
-        protected abstract bool ThrowOnInvalidTransition { get; }
+        internal IDictionary<IComparable, IStateTransition<T>> Transitions;
 
         public IState CurrentState { get; protected set; }
 
@@ -18,6 +16,7 @@ namespace StateSharp
             _ = context ?? throw new ArgumentNullException(nameof(context));
 
             Context = context;
+            Transitions = GetStateTransitionDictionary();
         }
 
         public void AddTransition(IStateTransition<T> transition)
@@ -43,7 +42,7 @@ namespace StateSharp
             return Transitions.ContainsKey(GetStateTransitionKey(currentState, command));
         }
 
-        public bool ExecuteTransition(ICommand command)
+        public virtual bool ExecuteTransition(ICommand command)
         {
             IStateTransition<T> transition;
 
@@ -55,15 +54,17 @@ namespace StateSharp
                 return true;
             }
 
-            if(ThrowOnInvalidTransition)
-                throw new InvalidOperationException($"State Machine has no transition defined for Current State {CurrentState} with Command {command}");
-
             return false;
         }
 
-        protected IComparable GetStateTransitionKey(IState state, ICommand command)
+        protected virtual IComparable GetStateTransitionKey(IState state, ICommand command)
         {
             return new StateTransitionKey(state, command);
+        }
+
+        protected virtual IDictionary<IComparable, IStateTransition<T>> GetStateTransitionDictionary()
+        {
+            return new Dictionary<IComparable, IStateTransition<T>>();
         }
     }
 }
