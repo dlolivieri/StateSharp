@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StateSharp.Demo.Vehicle
 {
-    public class VehicleStateMachineContext : IStateMachineContext
+    public class VehicleStateMachineContext
     {
         public string VehicleMessage { get; set; } = string.Empty;
     }

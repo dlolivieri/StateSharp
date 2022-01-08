@@ -1,6 +1,8 @@
-﻿namespace StateSharp
+﻿using System;
+
+namespace StateSharp
 {
-    public interface IStateMachine<T> where T : IStateMachineContext
+    public interface IStateMachine<T>
     {
         /// <summary>
         /// The Current State of the State Machine

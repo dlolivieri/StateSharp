@@ -2,7 +2,7 @@
 
 namespace StateSharp
 {
-    public interface IStateTransition<T> where T : IStateMachineContext
+    public interface IStateTransition<T>
     {
         /// <summary>
         /// The Current State that the IStateMachine has to be in
@@ -10,7 +10,7 @@ namespace StateSharp
         IState CurrentState { get; }
 
         /// <summary>
-        /// Command which transitions from the CurrentState to the ToState
+        /// Command which transitions from the CurrentState to the ResultingState
         /// </summary>
         ICommand Command { get; }
 

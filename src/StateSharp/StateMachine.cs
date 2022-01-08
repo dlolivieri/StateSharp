@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace StateSharp
 {
-    public abstract class StateMachine<T> : IStateMachine<T> where T : IStateMachineContext
+    public abstract class StateMachine<T> : IStateMachine<T>
     {
         internal Dictionary<IStateTransitionKey, IStateTransition<T>> Transitions = new Dictionary<IStateTransitionKey, IStateTransition<T>>();
 
@@ -15,6 +15,8 @@ namespace StateSharp
 
         public StateMachine(T context)
         {
+            _ = context ?? throw new ArgumentNullException(nameof(context));
+
             Context = context;
         }
 
