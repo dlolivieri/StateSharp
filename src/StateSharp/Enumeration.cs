@@ -35,11 +35,13 @@ namespace StateSharp
 
         public override bool Equals(object obj)
         {
-            if (!(obj is Enumeration otherValue))
+            var other = obj as Enumeration;
+
+            if (other == null)
                 return false;
 
             var typeMatches = GetType().Equals(obj.GetType());
-            var valueMatches = Value.Equals(otherValue.Value);
+            var valueMatches = Value.Equals(other.Value);
 
             var isMatch = typeMatches && valueMatches;
 

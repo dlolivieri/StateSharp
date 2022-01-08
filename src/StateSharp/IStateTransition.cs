@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace StateSharp
+﻿namespace StateSharp
 {
-    public interface IStateTransition<T>
+    public interface IStateTransition<T> where T : class
     {
         /// <summary>
         /// The Current State that the IStateMachine has to be in

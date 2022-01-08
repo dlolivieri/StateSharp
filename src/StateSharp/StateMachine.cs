@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace StateSharp
 {
-    public class StateMachine<T> : IStateMachine<T>
+    public class StateMachine<T> : IStateMachine<T> where T : class
     {
         internal IDictionary<IComparable, IStateTransition<T>> Transitions;
 
