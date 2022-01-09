@@ -10,9 +10,9 @@ namespace StateSharp.Demo.Vehicle.Transitions
 
         public IState ResultingState => VehicleState.Off;
 
-        public void TransitionAction(VehicleStateMachineContext context)
+        public Action<VehicleStateMachineContext> TransitionAction => (context) =>
         {
             context.VehicleMessage = "The Vehicle is turning off.";
-        }
+        };
     }
 }

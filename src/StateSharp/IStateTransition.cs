@@ -1,4 +1,6 @@
-﻿namespace StateSharp
+﻿using System;
+
+namespace StateSharp
 {
     public interface IStateTransition<T> where T : class
     {
@@ -15,7 +17,7 @@
         /// <summary>
         /// The action that occurs when transitioning
         /// </summary>
-        void TransitionAction(T context);
+        Action<T> TransitionAction { get; }
 
         /// <summary>
         /// The State that the IStateMachine will be in after TransitionAction() is called

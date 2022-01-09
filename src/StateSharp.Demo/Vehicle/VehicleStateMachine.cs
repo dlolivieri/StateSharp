@@ -1,5 +1,6 @@
 ﻿using StateSharp.Demo.Vehicle.Transitions;
 using System;
+using System.Collections.Generic;
 
 namespace StateSharp.Demo.Vehicle
 {
@@ -16,11 +17,20 @@ namespace StateSharp.Demo.Vehicle
             AddTransition(new MovingOnTransition());
         }
 
+        public VehicleStateMachine(VehicleStateMachineContext context, IEnumerable<IStateTransition<VehicleStateMachineContext>> transitions)
+            : base(context)
+        {
+            CurrentState = VehicleState.Off;
+
+            foreach (var transition in transitions)
+                AddTransition(transition);          
+        }
+
         public override bool ExecuteTransition(ICommand command)
         {
             bool result = base.ExecuteTransition(command);
 
-            if(!result)
+            if (!result)
                 throw new InvalidOperationException($"Vehicle State Machine has no transition defined for Current State {CurrentState} with Command {command}");
 
             return result;

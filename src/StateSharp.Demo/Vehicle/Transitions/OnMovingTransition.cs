@@ -10,9 +10,9 @@ namespace StateSharp.Demo.Vehicle.Transitions
 
         public IState ResultingState => VehicleState.Moving;
 
-        public void TransitionAction(VehicleStateMachineContext context)
+        public Action<VehicleStateMachineContext> TransitionAction => (context) =>
         {
-            Console.Out.WriteLine("The Vehicle is moving.");
-        }
+            context.VehicleMessage = "The Vehicle is moving.";
+        };
     }
 }
